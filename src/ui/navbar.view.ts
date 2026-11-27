@@ -15,16 +15,16 @@ export function renderNavbar(
         <div class="navbar-logo">BBI</div>
         <div>
           <div class="navbar-title">PT BBI &mdash; MTO Command Center</div>
-          <div class="navbar-subtitle">Integrated Manufacturing Information System (${escapeHtml(session.location)})</div>
+          <div class="navbar-subtitle">Sistem Informasi Manufaktur Terintegrasi (${escapeHtml(session.location)})</div>
         </div>
       </div>
       <div class="navbar-actions">
         <span class="user-chip">${escapeHtml(session.name)} &bull; ${escapeHtml(session.role)}</span>
         <button type="button" id="btn-reset-db" class="btn-pill btn-secondary-pill btn-compact">
-          Reset Demo DB
+          Reset Data Demo
         </button>
         <button type="button" id="btn-logout" class="btn-pill btn-outline-aubergine btn-compact">
-          Sign Out
+          Keluar
         </button>
       </div>
     </header>

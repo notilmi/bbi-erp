@@ -7,6 +7,7 @@ export function renderOrderList(
   orders: readonly MTOOrder[],
   selectedOrderId: string | null,
   searchQuery: string,
+  canCreateProposal: boolean,
   callbacks: {
     onSelectOrder: (orderId: string) => void;
     onSearchChange: (query: string) => void;
@@ -63,7 +64,7 @@ export function renderOrderList(
             `;
           })
           .join('')
-      : `<tr><td colspan="4" style="text-align:center; color: var(--color-ink-mute);">No MTO orders match your filter.</td></tr>`;
+      : `<tr><td colspan="4" style="text-align:center; color: var(--color-ink-mute);">Tidak ada Order MTO yang sesuai pencarian.</td></tr>`;
 
   const hadSearchFocus = document.activeElement?.id === 'order-search-input';
   const cursorPos =
@@ -75,12 +76,16 @@ export function renderOrderList(
     <div class="panel-card">
       <div class="panel-header">
         <div>
-          <h2 class="panel-title">MTO Orders &amp; Proposals</h2>
-          <p class="navbar-subtitle">Click an order to inspect &amp; update parallel subsystems</p>
+          <h2 class="panel-title">Daftar Order &amp; Proposal MTO</h2>
+          <p class="navbar-subtitle">Klik baris order untuk memantau subsistem paralel</p>
         </div>
-        <button type="button" id="btn-open-new-order" class="btn-pill btn-primary-pill btn-compact">
-          + New MTO Proposal
-        </button>
+        ${
+          canCreateProposal
+            ? `<button type="button" id="btn-open-new-order" class="btn-pill btn-primary-pill btn-compact">
+                + Buat Proposal MTO
+              </button>`
+            : `<span class="badge badge-neutral">Buat Proposal: Khusus Sales / Manajemen</span>`
+        }
       </div>
 
       <div class="filter-row">
@@ -88,7 +93,7 @@ export function renderOrderList(
           id="order-search-input"
           class="text-input"
           type="search"
-          placeholder="Search order no, client, vessel, heat exchanger..."
+          placeholder="Cari nomor order, pelanggan, Pressure Vessel, Heat Exchanger..."
           value="${escapeHtml(searchQuery)}"
         />
       </div>
@@ -98,9 +103,9 @@ export function renderOrderList(
           <thead>
             <tr>
               <th>Order</th>
-              <th>Customer &amp; Scope</th>
-              <th>Stage</th>
-              <th>Target</th>
+              <th>Pelanggan &amp; Lingkup</th>
+              <th>Order Stage</th>
+              <th>Target Kirim</th>
             </tr>
           </thead>
           <tbody>${rowsHtml}</tbody>
@@ -111,16 +116,16 @@ export function renderOrderList(
     <div id="new-order-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
       <div class="modal-card">
         <div class="panel-header">
-          <h3 class="panel-title">New MTO Proposal / Order</h3>
-          <button type="button" id="btn-close-modal" class="btn-pill btn-secondary-pill btn-compact">Close</button>
+          <h3 class="panel-title">Proposal / Order MTO Baru</h3>
+          <button type="button" id="btn-close-modal" class="btn-pill btn-secondary-pill btn-compact">Tutup</button>
         </div>
         <form id="new-order-form" class="auth-form">
           <div class="field-group">
-            <label class="field-label" for="new-customer">Customer Name</label>
-            <input id="new-customer" class="text-input" type="text" required placeholder="e.g. PT Chandra Asri" />
+            <label class="field-label" for="new-customer">Nama Pelanggan</label>
+            <input id="new-customer" class="text-input" type="text" required placeholder="contoh: PT Chandra Asri" />
           </div>
           <div class="field-group">
-            <label class="field-label" for="new-category">Equipment Category</label>
+            <label class="field-label" for="new-category">Kategori Peralatan</label>
             <select id="new-category" class="select-input">
               <option value="Pressure Vessel">Pressure Vessel</option>
               <option value="Heat Exchanger">Heat Exchanger</option>
@@ -129,20 +134,20 @@ export function renderOrderList(
             </select>
           </div>
           <div class="field-group">
-            <label class="field-label" for="new-title">Project Title / Spec</label>
-            <input id="new-title" class="text-input" type="text" required placeholder="e.g. Reactor Feed Heat Exchanger" />
+            <label class="field-label" for="new-title">Judul Proyek / Spesifikasi</label>
+            <input id="new-title" class="text-input" type="text" required placeholder="contoh: Reactor Feed Heat Exchanger" />
           </div>
           <div class="inline-controls">
             <div class="field-group" style="flex:1;">
-              <label class="field-label" for="new-date">Target Delivery</label>
+              <label class="field-label" for="new-date">Target Pengiriman</label>
               <input id="new-date" class="text-input" type="date" required value="2027-06-30" />
             </div>
             <div class="field-group" style="flex:1;">
-              <label class="field-label" for="new-cost">Estimated Budget (IDR)</label>
+              <label class="field-label" for="new-cost">Estimasi Anggaran (IDR)</label>
               <input id="new-cost" class="text-input" type="number" required min="100000000" step="50000000" value="2000000000" />
             </div>
           </div>
-          <button type="submit" class="btn-pill btn-primary-pill">Create &amp; Publish to Central DB</button>
+          <button type="submit" class="btn-pill btn-primary-pill">Simpan ke Database Terpusat</button>
         </form>
       </div>
     </div>
@@ -165,9 +170,12 @@ export function renderOrderList(
   });
 
   const modal = qs<HTMLDivElement>(container, '#new-order-modal');
-  qs<HTMLButtonElement>(container, '#btn-open-new-order').addEventListener('click', () => {
-    modal.classList.remove('hidden');
-  });
+  const openBtn = container.querySelector<HTMLButtonElement>('#btn-open-new-order');
+  if (openBtn) {
+    openBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+  }
   qs<HTMLButtonElement>(container, '#btn-close-modal').addEventListener('click', () => {
     modal.classList.add('hidden');
   });

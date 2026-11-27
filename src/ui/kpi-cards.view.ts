@@ -1,37 +1,24 @@
-import type { DashboardMetrics } from '../services/metrics.service.ts';
+import type { RoleKpiCard } from '../services/metrics.service.ts';
+import { escapeHtml } from '../utils/dom.util.ts';
 
-export function renderKpiCards(container: HTMLElement, metrics: DashboardMetrics): void {
-  const varianceSign = metrics.costVariancePct > 0 ? '+' : '';
-  const varianceClass = metrics.costVariancePct > 5 ? 'is-error' : 'is-success';
-  const ncrClass = metrics.openNcrCount > 0 ? 'is-error' : 'is-success';
+export function renderKpiCards(container: HTMLElement, cards: readonly RoleKpiCard[]): void {
+  const cardsHtml = cards
+    .map((card) => {
+      const toneClass =
+        card.tone === 'error' ? 'is-error' : card.tone === 'success' ? 'is-success' : '';
+      return `
+        <article class="card-stat">
+          <span class="card-stat-label">${escapeHtml(card.label)}</span>
+          <span class="card-stat-value ${toneClass}">${escapeHtml(card.value)}</span>
+          <span class="card-stat-foot">${escapeHtml(card.foot)}</span>
+        </article>
+      `;
+    })
+    .join('');
 
   container.innerHTML = `
-    <section class="kpi-grid" aria-label="Executive KPIs">
-      <article class="card-stat">
-        <span class="card-stat-label">On-Time Schedule</span>
-        <span class="card-stat-value ${metrics.onTimeRatePct >= 75 ? 'is-success' : 'is-error'}">
-          ${metrics.onTimeRatePct}%
-        </span>
-        <span class="card-stat-foot">Target: eliminate 3&ndash;7 mo delays</span>
-      </article>
-
-      <article class="card-stat">
-        <span class="card-stat-label">Active MTO Orders</span>
-        <span class="card-stat-value">${metrics.activeOrdersCount}</span>
-        <span class="card-stat-foot">Avg material readiness: ${metrics.avgMaterialReadinessPct}%</span>
-      </article>
-
-      <article class="card-stat">
-        <span class="card-stat-label">Open Quality NCRs</span>
-        <span class="card-stat-value ${ncrClass}">${metrics.openNcrCount}</span>
-        <span class="card-stat-foot">Real-time CAPA feedback active</span>
-      </article>
-
-      <article class="card-stat">
-        <span class="card-stat-label">Cost Variance</span>
-        <span class="card-stat-value ${varianceClass}">${varianceSign}${metrics.costVariancePct}%</span>
-        <span class="card-stat-foot">Actual vs. estimated MTO budget</span>
-      </article>
+    <section class="kpi-grid" aria-label="KPI Peran Departemen">
+      ${cardsHtml}
     </section>
   `;
 }

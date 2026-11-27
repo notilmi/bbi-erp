@@ -38,30 +38,30 @@ export function renderAuthView(
                 <span class="auth-brand-dot"></span>
                 <span>PT Boma Bisma Indra (BBI)</span>
               </div>
-              <h1 class="auth-hero-title">Integrated MTO Manufacturing Command Center</h1>
+              <h1 class="auth-hero-title">Sistem Informasi Manufaktur MTO Terintegrasi</h1>
               <p class="auth-hero-sub">
-                Unified digital workspace replacing sequential paper workflows with parallel access
-                across proposal, engineering, procurement, operations, quality, and cost control.
+                Ruang kerja digital terpusat yang menggantikan aliran dokumen kertas sekuensial menjadi
+                kolaborasi paralel lintas fungsi: Proposal, Engineering, Procurement, Operations, QA/QC, dan Cost Control.
               </p>
               <div class="auth-subsystem-list">
                 <div class="auth-subsystem-chip">1. Material &amp; Services</div>
-                <div class="auth-subsystem-chip">2. Operations &amp; Bay</div>
-                <div class="auth-subsystem-chip">3. Real-Time QA / QC</div>
+                <div class="auth-subsystem-chip">2. Operations &amp; Work Center</div>
+                <div class="auth-subsystem-chip">3. Quality (QA / QC)</div>
                 <div class="auth-subsystem-chip">4. Cost &amp; Variance</div>
               </div>
             </div>
             <p class="navbar-subtitle" style="color: var(--color-on-aubergine-mute);">
-              Hybrid Client-Server Prototype &bull; Centralized LocalStorage DB
+              Prototipe Hybrid Client-Server &bull; Database Terpusat (LocalStorage)
             </p>
           </aside>
 
           <div class="auth-card">
             <div class="auth-tabs">
               <button type="button" class="auth-tab-btn ${mode === 'login' ? 'active' : ''}" data-tab="login">
-                Sign In
+                Masuk
               </button>
               <button type="button" class="auth-tab-btn ${mode === 'register' ? 'active' : ''}" data-tab="register">
-                Register Account
+                Daftar Akun
               </button>
             </div>
 
@@ -72,48 +72,48 @@ export function renderAuthView(
                 ? `
               <form id="login-form" class="auth-form">
                 <div class="field-group">
-                  <label class="field-label" for="login-email">Corporate Email</label>
-                  <input id="login-email" class="text-input" type="email" required placeholder="e.g. taufiq.qa@ptbbi.co.id" />
+                  <label class="field-label" for="login-email">Email Perusahaan</label>
+                  <input id="login-email" class="text-input" type="email" required placeholder="contoh: taufiq.qa@ptbbi.co.id" />
                 </div>
                 <div class="field-group">
-                  <label class="field-label" for="login-password">Password</label>
-                  <input id="login-password" class="text-input" type="password" required placeholder="Default demo: bbi2026" />
+                  <label class="field-label" for="login-password">Kata Sandi</label>
+                  <input id="login-password" class="text-input" type="password" required placeholder="Password demo: bbi2026" />
                 </div>
-                <button type="submit" class="btn-pill btn-primary-pill">Sign In to Workspace</button>
+                <button type="submit" class="btn-pill btn-primary-pill">Masuk ke Workspace</button>
               </form>
             `
                 : `
               <form id="register-form" class="auth-form">
                 <div class="field-group">
-                  <label class="field-label" for="reg-name">Full Name</label>
-                  <input id="reg-name" class="text-input" type="text" required placeholder="e.g. Andi Pratama" />
+                  <label class="field-label" for="reg-name">Nama Lengkap</label>
+                  <input id="reg-name" class="text-input" type="text" required placeholder="contoh: Andi Pratama" />
                 </div>
                 <div class="field-group">
-                  <label class="field-label" for="reg-email">Corporate Email</label>
+                  <label class="field-label" for="reg-email">Email Perusahaan</label>
                   <input id="reg-email" class="text-input" type="email" required placeholder="andi@ptbbi.co.id" />
                 </div>
                 <div class="field-group">
-                  <label class="field-label" for="reg-role">Department Role</label>
+                  <label class="field-label" for="reg-role">Role Departemen</label>
                   <select id="reg-role" class="select-input">${roleOptionsHtml}</select>
                 </div>
                 <div class="field-group">
-                  <label class="field-label" for="reg-location">Plant / Location</label>
+                  <label class="field-label" for="reg-location">Lokasi Kerja</label>
                   <select id="reg-location" class="select-input">
                     <option value="Surabaya Plant">Surabaya Plant</option>
                     <option value="HQ Corporate">HQ Corporate</option>
                   </select>
                 </div>
                 <div class="field-group">
-                  <label class="field-label" for="reg-password">Password</label>
-                  <input id="reg-password" class="text-input" type="password" required minlength="4" placeholder="Minimum 4 characters" />
+                  <label class="field-label" for="reg-password">Kata Sandi</label>
+                  <input id="reg-password" class="text-input" type="password" required minlength="4" placeholder="Minimal 4 karakter" />
                 </div>
-                <button type="submit" class="btn-pill btn-primary-pill">Create Account &amp; Enter</button>
+                <button type="submit" class="btn-pill btn-primary-pill">Buat Akun &amp; Masuk</button>
               </form>
             `
             }
 
             <div class="auth-demo-section">
-              <span class="auth-demo-label">1-Click Department Demo Access</span>
+              <span class="auth-demo-label">Akses Cepat Demo per Role (1-Klik)</span>
               <div class="auth-role-grid">${roleButtonsHtml}</div>
             </div>
           </div>

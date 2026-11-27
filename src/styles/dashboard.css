@@ -272,6 +272,43 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  border: 2px solid transparent;
+}
+
+.subsystem-card.is-highlighted {
+  border-color: var(--color-primary);
+  background-color: var(--color-canvas-lavender);
+}
+
+.readonly-note {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-mute);
+}
+
+.customize-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-xl);
+  padding: 10px 18px;
+}
+
+.customize-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--color-ink);
+}
+
+.customize-toggle input {
+  accent-color: var(--color-primary);
 }
 
 .subsystem-head {
