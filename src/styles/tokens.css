@@ -1,0 +1,47 @@
+:root {
+  /* Brand & Surface Colors (DESIGN.md) */
+  --color-primary: #4a154b;
+  --color-primary-deep: #481a54;
+  --color-primary-press: #611f69;
+  --color-primary-tint: #592466;
+  --color-on-primary: #ffffff;
+  --color-on-aubergine-mute: #d9bdde;
+
+  --color-ink: #1d1d1d;
+  --color-ink-mute: #696969;
+  --color-link-blue: #1264a3;
+  --color-link-hover: #3860be;
+
+  --color-canvas: #ffffff;
+  --color-canvas-cream: #f4ede4;
+  --color-canvas-lavender: #f9f0ff;
+  --color-surface-elev: #ffffff;
+  --color-surface-aubergine: #4a154b;
+
+  --color-hairline: #e6e6e6;
+  --color-hairline-strong: #000000;
+  --color-semantic-error: #cc4117;
+  --color-semantic-success: #007a5a;
+
+  /* Typography */
+  --font-display: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-xxl: 48px;
+  --radius-pill: 90px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-xxl: 24px;
+  --space-huge: 28px;
+}
